@@ -11,10 +11,12 @@ public class HeroKnight : MonoBehaviour {
     private Sensor_HeroKnight   m_groundSensor;
     private bool                m_grounded = false;
     private bool                m_rolling = false;
+    private bool                isDead = false;
     private int                 m_facingDirection = 1;
     private float               m_delayToIdle = 0.0f;
     private float               m_rollDuration = 8.0f / 14.0f;
     private float               m_rollCurrentTime;
+    public int health;
 
 
     // Use this for initialization
@@ -55,27 +57,27 @@ public class HeroKnight : MonoBehaviour {
         float inputX = Input.GetAxis("Horizontal");
 
         // Swap direction of sprite depending on walk direction
-        if (inputX > 0)
+        if (inputX > 0 && !isDead)
         {
             GetComponent<SpriteRenderer>().flipX = false;
             m_facingDirection = 1;
         }
             
-        else if (inputX < 0)
+        else if (inputX < 0 || !isDead)
         {
             GetComponent<SpriteRenderer>().flipX = true;
             m_facingDirection = -1;
         }
 
         // Move
-        if (!m_rolling )
+        if (!m_rolling || !isDead)
             m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
 
         //Set AirSpeed in animator
         m_animator.SetFloat("AirSpeedY", m_body2d.velocity.y);
 
         // Block
-        if (Input.GetMouseButtonDown(1) && !m_rolling)
+        if (Input.GetMouseButtonDown(1) && !m_rolling && !isDead)
         {
             m_animator.SetTrigger("Block");
             m_animator.SetBool("IdleBlock", true);
@@ -85,7 +87,7 @@ public class HeroKnight : MonoBehaviour {
             m_animator.SetBool("IdleBlock", false);
 
         // Roll
-        else if (Input.GetKeyDown("left shift") && !m_rolling)
+        else if (Input.GetKeyDown("left shift") && !m_rolling && !isDead)
         {
             m_rolling = true;
             m_animator.SetTrigger("Roll");
@@ -107,6 +109,24 @@ public class HeroKnight : MonoBehaviour {
             m_delayToIdle -= Time.deltaTime;
                 if(m_delayToIdle < 0)
                     m_animator.SetInteger("AnimState", 0);
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        health -= damageAmount;
+
+        if(health <= 0 && !isDead)
+        {
+            m_animator.SetTrigger("Death");
+            Destroy(gameObject, 2f);
+            isDead = true;
+        }
+        else if(health > 0)
+        {
+            if(!isDead)
+                m_animator.SetTrigger("Hurt");
+            
         }
     }
 
