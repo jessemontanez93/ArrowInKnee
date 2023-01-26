@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class Dragon : MonoBehaviour
 {
     [SerializeField] float minSpeed;
     [SerializeField] float maxSpeed;
-    float speed;
+    float speed = 2f;
     Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     public Sprite[] sprites;
     private int spriteIndex;
-    HeroKnight heroScript;
-    public int dmg;
-    
+
     private void Awake() 
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -21,10 +19,8 @@ public class Arrow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        speed = Random.Range(minSpeed, maxSpeed);
         InvokeRepeating(nameof(AnimateSprite), 0.10f, 0.10f);
         rb = GetComponent<Rigidbody2D>();
-        heroScript = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroKnight>();
     }
     private void AnimateSprite()
     {
@@ -40,18 +36,7 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector2.down * speed * Time.deltaTime);
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.tag == "Player")
-        {
-            heroScript.TakeDamage(dmg);
-        }
-        else if(other.tag == "Ground")
-        {
-            Destroy(gameObject);
-        }    
-    }
 }

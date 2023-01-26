@@ -70,7 +70,7 @@ public class HeroKnight : MonoBehaviour {
         }
 
         // Move
-        if (!m_rolling || !isDead)
+        if (!m_rolling && !isDead)
             m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
 
         //Set AirSpeed in animator
@@ -119,7 +119,7 @@ public class HeroKnight : MonoBehaviour {
         if(health <= 0 && !isDead)
         {
             m_animator.SetTrigger("Death");
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 3f);
             isDead = true;
         }
         else if(health > 0)
