@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7102444197949875137}
   - component: {fileID: 1002484648821860164}
   - component: {fileID: 7791279170948354382}
+  - component: {fileID: 4147405043766175528}
   m_Layer: 0
   m_Name: flying_1
   m_TagString: Untagged
@@ -108,3 +109,29 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e52773e9694447c46b43c93f24a5d165, type: 3}
   - {fileID: 21300000, guid: 86dbbefba31064149b6b2fd680303152, type: 3}
   - {fileID: 21300000, guid: d516989316d77bc46bc1319c508c2b4f, type: 3}
+--- !u!61 &4147405043766175528
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105011242739627677}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5, y: 1.5}
+    newSize: {x: 1.5, y: 1.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5}
+  m_EdgeRadius: 0
